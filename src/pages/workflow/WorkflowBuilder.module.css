@@ -1,21 +1,68 @@
 .container {
   padding: 2rem;
   background-color: #fff;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 100vh;
+  background-color: #f8f2e7;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  /* margin-bottom: 0; */
+  /* margin-bottom: 2rem; */
 }
 
 .header h1 {
   font-size: 1.5rem;
   font-weight: 600;
   color: #333;
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
+}
+
+.tableBox {
+  padding: 3rem;
 }
 
 .searchContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.searchContainer img {
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.searchContainer img:hover {
+  border-color: #48a6a7;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  border-radius: 4px;
+}
+
+.searchContainer button {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.searchContainer button:hover {
+  opacity: 0.8;
+}
+
+.searchContainer button img {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .searchInput {
@@ -28,7 +75,7 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #2196f3;
+  border-color: #48a6a7;
 }
 
 .createButton {
@@ -36,7 +83,7 @@
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   font-size: 0.875rem;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -48,6 +95,7 @@
 
 .tableContainer {
   background-color: white;
+  padding: 1rem 2rem;
   border-radius: 8px;
   overflow: auto;
   margin-bottom: 2rem;
@@ -64,7 +112,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #666;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid #f68b21;
 }
 
 .table td {
@@ -130,8 +178,9 @@
 }
 
 .pagination {
+  margin-top: 1.87rem;
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   gap: 0.5rem;
 }
