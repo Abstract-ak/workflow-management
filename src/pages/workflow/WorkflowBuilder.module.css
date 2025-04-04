@@ -1,0 +1,157 @@
+.container {
+  padding: 2rem;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.searchInput {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  width: 300px;
+  font-size: 0.875rem;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #2196f3;
+}
+
+.createButton {
+  background-color: #333;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.createButton:hover {
+  background-color: #000;
+}
+
+.tableContainer {
+  background-color: white;
+  border-radius: 8px;
+  overflow: auto;
+  margin-bottom: 2rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #666;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.table td {
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.iconButton:hover {
+  color: #333;
+}
+
+.star {
+  color: #ccc;
+}
+
+.starActive {
+  color: #ffc107;
+}
+
+.executeButton,
+.editButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.executeButton {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.executeButton:hover {
+  background-color: #e0e0e0;
+}
+
+.editButton {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #e0e0e0;
+}
+
+.editButton:hover {
+  background-color: #f5f5f5;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.paginationButton {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  color: #666;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.paginationButton:hover {
+  background-color: #f5f5f5;
+}
+
+.paginationButton.active {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+}
