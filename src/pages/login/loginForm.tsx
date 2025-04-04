@@ -74,7 +74,7 @@ const LoginForm = () => {
               <span>Log In with Facebook</span>
             </button>
             <button type="button" className={styles.socialButton}>
-              <img src="/apple.svg" alt="Apple" />
+              <img src="/apple.png" alt="Apple" />
               <span>Log In with Apple</span>
             </button>
           </div>
