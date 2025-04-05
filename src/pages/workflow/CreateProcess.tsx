@@ -23,7 +23,7 @@ const CreateProcess = () => {
             <img src="startProcess.png" alt="start-node" />
             <div className={styles.connector}>
               <div className={styles.addNode}>
-                <img src="plus-icon.png" alt="add" />
+                <img src="plus-sign.png" alt="add" />
               </div>
             </div>
           </div>
@@ -36,19 +36,18 @@ const CreateProcess = () => {
 
       <div className={styles.footer}>
         <div className={styles.leftControls}>
-          <button className={styles.controlButton}>
-            <img src="undo-icon.png" alt="undo" />
-          </button>
-          <button className={styles.controlButton}>
-            <img src="redo-icon.png" alt="redo" />
-          </button>
+          <img src="undo-btn.png" alt="undo" />
+
+          <img src="redo-btn.png" alt="redo" />
         </div>
+
         <div className={styles.zoomControls}>
+          <img src="green-lit.png" alt="green-lit-go" />
           <button
-            className={styles.zoomButton}
+            // className={styles.zoomButton}
             onClick={() => setZoom(Math.max(0, zoom - 10))}
           >
-            <img src="minus-icon.png" alt="zoom out" />
+            <img src="minus-btn.png" alt="zoom out" />
           </button>
           <div className={styles.zoomSliderContainer}>
             <input
@@ -61,10 +60,10 @@ const CreateProcess = () => {
             />
           </div>
           <button
-            className={styles.zoomButton}
+            // className={styles.zoomButton}
             onClick={() => setZoom(Math.min(200, zoom + 10))}
           >
-            <img src="plus-icon.png" alt="zoom in" />
+            <img src="plus-btn.png" alt="zoom in" />
           </button>
         </div>
       </div>

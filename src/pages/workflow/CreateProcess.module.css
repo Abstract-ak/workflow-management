@@ -125,8 +125,8 @@
 }
 
 .addNode img {
-  width: 12px;
-  height: 12px;
+  width: 24px;
+  height: 24px;
 }
 
 .footer {
@@ -142,6 +142,7 @@
 
 .leftControls {
   display: flex;
+  background-color: #f5f5f5;
   gap: 0.5rem;
 }
 
@@ -166,11 +167,15 @@
 .zoomControls {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  /* justify-content: center; */
+  /* gap: 0.5rem; */
   background-color: white;
-  padding: 0.5rem;
+  border: none;
+  /* background: none; */
+  /* padding: 0.5rem; */
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .zoomButton {
@@ -191,7 +196,7 @@
 
 .zoomSliderContainer {
   width: 200px;
-  padding: 0 0.5rem;
+  /* padding: 0 0.5rem; */
 }
 
 .zoomSlider {
