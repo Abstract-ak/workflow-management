@@ -2,10 +2,12 @@ import { useState } from "react";
 import styles from "./WorkflowBuilder.module.css";
 import { FaEllipsisV, FaDownload } from "react-icons/fa";
 import { Workflow, initialWorkflowData } from "./workflowData";
+import ExecuteModel from "./ExecuteModel";
 
 const WorkflowBuilder = () => {
   const [isNavbarActive, setIsNavbarActive] = useState(false);
   const [workflows, setWorkflows] = useState<Workflow[]>(initialWorkflowData);
+  const [isExecuteModelOpen, setIsExecuteModelOpen] = useState(false);
 
   const handlePinClick = (index: number) => {
     setWorkflows((prevWorkflows) => {
@@ -17,6 +19,16 @@ const WorkflowBuilder = () => {
       };
       return newWorkflows;
     });
+  };
+
+  const handleExecute = () => {
+    setIsExecuteModelOpen(true);
+  };
+
+  const handleConfirmExecute = () => {
+    // Handle execute logic here
+    console.log("Executing workflow...");
+    setIsExecuteModelOpen(false);
   };
 
   return (
@@ -74,7 +86,12 @@ const WorkflowBuilder = () => {
                     />
                   </td>
                   <td>
-                    <button className={styles.executeButton}>Execute</button>
+                    <button
+                      className={styles.executeButton}
+                      onClick={handleExecute}
+                    >
+                      Execute
+                    </button>
                   </td>
                   <td>
                     <button className={styles.editButton}>Edit</button>
@@ -111,6 +128,12 @@ const WorkflowBuilder = () => {
           <button className={styles.paginationButton}>&gt;</button>
         </div> */}
       </div>
+      <ExecuteModel
+        isOpen={isExecuteModelOpen}
+        onClose={() => setIsExecuteModelOpen(false)}
+        onConfirm={handleConfirmExecute}
+        processName={"Process_Name"}
+      />
     </div>
   );
 };
