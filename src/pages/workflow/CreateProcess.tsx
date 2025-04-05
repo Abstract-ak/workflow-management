@@ -1,8 +1,22 @@
 import { useState } from "react";
 import styles from "./CreateProcess.module.css";
+import SaveModel from "./SaveModel";
 
 const CreateProcess = () => {
   const [zoom, setZoom] = useState(100);
+  const [isSaveModelOpen, setIsSaveModelOpen] = useState(false);
+  const [workflowTitle, setWorkflowTitle] = useState("Untitled");
+
+  const handleSave = () => {
+    setIsSaveModelOpen(true);
+  };
+
+  const handleConfirmSave = (data: { name: string; description: string }) => {
+    // Handle save logic here
+    console.log("Saving workflow...", data);
+    setWorkflowTitle(data.name);
+    setIsSaveModelOpen(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -11,8 +25,13 @@ const CreateProcess = () => {
         <button>
           <img src="goBack-btn.png" alt="back" />
         </button>
-        <span className={styles.titleText}>Untitled</span>
-        <img src="save-btn.png" alt="save" />
+        <span className={styles.titleText}>{workflowTitle}</span>
+        <img
+          src="save-btn.png"
+          alt="save"
+          onClick={handleSave}
+          style={{ cursor: "pointer" }}
+        />
         {/* </div> */}
       </div>
 
@@ -67,6 +86,12 @@ const CreateProcess = () => {
           </button>
         </div>
       </div>
+
+      <SaveModel
+        isOpen={isSaveModelOpen}
+        onClose={() => setIsSaveModelOpen(false)}
+        onConfirm={handleConfirmSave}
+      />
     </div>
   );
 };
