@@ -1,11 +1,13 @@
 import { useState } from "react";
 import styles from "./CreateProcess.module.css";
 import SaveModel from "./SaveModel";
+import { useNavigate } from "react-router-dom";
 
 const CreateProcess = () => {
   const [zoom, setZoom] = useState(100);
   const [isSaveModelOpen, setIsSaveModelOpen] = useState(false);
   const [workflowTitle, setWorkflowTitle] = useState("Untitled");
+  let navigate = useNavigate();
 
   const handleSave = () => {
     setIsSaveModelOpen(true);
@@ -22,9 +24,16 @@ const CreateProcess = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         {/* <div className={styles.leftHeader}> */}
-        <button>
-          <img src="goBack-btn.png" alt="back" />
-        </button>
+        {/* <button> */}
+        <img
+          src="goBack-btn.png"
+          alt="back"
+          onClick={() => {
+            navigate(-1);
+          }}
+          style={{ cursor: "pointer" }}
+        />
+        {/* </button> */}
         <span className={styles.titleText}>{workflowTitle}</span>
         <img
           src="save-btn.png"
