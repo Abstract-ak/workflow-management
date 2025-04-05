@@ -1,38 +1,23 @@
 import { useState } from "react";
 import styles from "./WorkflowBuilder.module.css";
-import { FaStar, FaEllipsisV, FaDownload } from "react-icons/fa";
-
-interface Workflow {
-  id: string;
-  name: string;
-  lastEditedBy: string;
-  lastEditedTime: string;
-  description: string;
-  isFavorite: boolean;
-}
+import { FaEllipsisV, FaDownload } from "react-icons/fa";
+import { Workflow, initialWorkflowData } from "./workflowData";
 
 const WorkflowBuilder = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const [isNavbarActive, setIsNavbarActive] = useState(false);
-  const [workflows] = useState<Workflow[]>([
-    {
-      id: "#494",
-      name: "Workflow Name here...",
-      lastEditedBy: "Zubin Khanna",
-      lastEditedTime: "22:43 IST - 28/05",
-      description: "Some Description Here Regarding The Flow..",
-      isFavorite: false,
-    },
-    // Duplicate entries for demonstration
-    ...Array(7).fill({
-      id: "#494",
-      name: "Workflow Name here...",
-      lastEditedBy: "Zubin Khanna",
-      lastEditedTime: "22:43 IST - 28/05",
-      description: "Some Description Here Regarding The Flow..",
-      isFavorite: false,
-    }),
-  ]);
+  const [workflows, setWorkflows] = useState<Workflow[]>(initialWorkflowData);
+
+  const handlePinClick = (index: number) => {
+    setWorkflows((prevWorkflows) => {
+      const newWorkflows = [...prevWorkflows];
+      // Simply toggle the pin state for the clicked workflow
+      newWorkflows[index] = {
+        ...newWorkflows[index],
+        isPinned: !newWorkflows[index].isPinned,
+      };
+      return newWorkflows;
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -50,17 +35,10 @@ const WorkflowBuilder = () => {
 
       <div className={styles.tableBox}>
         <div className={styles.searchContainer}>
-          {/* <input
-            type="text"
-            placeholder="Search By Workflow Name/ID"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={styles.searchInput}
-          /> */}
-          <img src="Component36.png" />
+          <img src="Component36.png" alt="search-feild" />
           {/* <button className={styles.createButton}>+ Create New Process</button> */}
           <button>
-            <img src="Button.png" />
+            <img src="Button.png" alt="create-resource button" />
           </button>
         </div>
 
@@ -86,13 +64,14 @@ const WorkflowBuilder = () => {
                   <td>{`${workflow.lastEditedBy} | ${workflow.lastEditedTime}`}</td>
                   <td>{workflow.description}</td>
                   <td>
-                    <button className={styles.iconButton}>
-                      <FaStar
-                        className={
-                          workflow.isFavorite ? styles.starActive : styles.star
-                        }
-                      />
-                    </button>
+                    <img
+                      src={
+                        workflow.isPinned ? "pin-yellow.png" : "pin-white.png"
+                      }
+                      alt="pin-icon"
+                      onClick={() => handlePinClick(index)}
+                      style={{ cursor: "pointer" }}
+                    />
                   </td>
                   <td>
                     <button className={styles.executeButton}>Execute</button>
@@ -102,10 +81,12 @@ const WorkflowBuilder = () => {
                   </td>
                   <td className={styles.actionButtons}>
                     <button className={styles.iconButton}>
-                      <FaEllipsisV />
+                      {/* <FaEllipsisV /> */}
+                      <img src="Overflow_dot.png" alt="3-dots_option" />
                     </button>
                     <button className={styles.iconButton}>
-                      <FaDownload />
+                      {/* <FaDownload /> */}
+                      <img src="Frame_arrowDown.png" />
                     </button>
                   </td>
                 </tr>
