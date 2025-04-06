@@ -202,7 +202,7 @@ const WorkflowBuilder = () => {
                           <div className={styles.historyItem}>
                             <div className={styles.historyDot} />
                             <div className={styles.historyTime}>
-                              28/05 - 22:43 IST
+                              31/05 - 17:14 IST
                             </div>
                             <div className={styles.historyStatus}>
                               <span className={styles.statusFailed}>
@@ -217,7 +217,7 @@ const WorkflowBuilder = () => {
                           <div className={styles.historyItem}>
                             <div className={styles.historyDot} />
                             <div className={styles.historyTime}>
-                              28/05 - 22:43 IST
+                              02/06 - 12:12 IST
                             </div>
                             <div className={styles.historyStatus}>
                               <span className={styles.statusFailed}>
