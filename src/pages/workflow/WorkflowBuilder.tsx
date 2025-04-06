@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./WorkflowBuilder.module.css";
-import { FaEllipsisV, FaDownload } from "react-icons/fa";
 import { Workflow, initialWorkflowData } from "./workflowData";
 import ExecuteModel from "./ExecuteModel";
 
@@ -8,6 +7,26 @@ const WorkflowBuilder = () => {
   const [isNavbarActive, setIsNavbarActive] = useState(false);
   const [workflows, setWorkflows] = useState<Workflow[]>(initialWorkflowData);
   const [isExecuteModelOpen, setIsExecuteModelOpen] = useState(false);
+  const [activeDropdownIndex, setActiveDropdownIndex] = useState<number | null>(
+    null
+  );
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setActiveDropdownIndex(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handlePinClick = (index: number) => {
     setWorkflows((prevWorkflows) => {
@@ -29,6 +48,19 @@ const WorkflowBuilder = () => {
     // Handle execute logic here
     console.log("Executing workflow...");
     setIsExecuteModelOpen(false);
+  };
+
+  const handleDelete = (index: number) => {
+    setWorkflows((prevWorkflows) => {
+      const newWorkflows = [...prevWorkflows];
+      newWorkflows.splice(index, 1);
+      return newWorkflows;
+    });
+    setActiveDropdownIndex(null);
+  };
+
+  const toggleDropdown = (index: number) => {
+    setActiveDropdownIndex(activeDropdownIndex === index ? null : index);
   };
 
   return (
@@ -97,13 +129,27 @@ const WorkflowBuilder = () => {
                     <button className={styles.editButton}>Edit</button>
                   </td>
                   <td className={styles.actionButtons}>
+                    <div className={styles.dropdownContainer} ref={dropdownRef}>
+                      <button
+                        className={styles.iconButton}
+                        onClick={() => toggleDropdown(index)}
+                      >
+                        <img src="Overflow_dot.png" alt="3-dots_option" />
+                      </button>
+                      {/* dropdown dialogue-box */}
+                      {activeDropdownIndex === index && (
+                        <div className={styles.dropdownMenu}>
+                          <button
+                            className={styles.dropdownItem}
+                            onClick={() => handleDelete(index)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
                     <button className={styles.iconButton}>
-                      {/* <FaEllipsisV /> */}
-                      <img src="Overflow_dot.png" alt="3-dots_option" />
-                    </button>
-                    <button className={styles.iconButton}>
-                      {/* <FaDownload /> */}
-                      <img src="Frame_arrowDown.png" />
+                      <img src="Frame_arrowDown.png" alt="download" />
                     </button>
                   </td>
                 </tr>
