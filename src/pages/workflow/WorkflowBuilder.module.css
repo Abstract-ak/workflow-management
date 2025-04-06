@@ -247,3 +247,85 @@
   background-color: #f5f5f5;
   color: #ee3124;
 }
+
+.expandedRow {
+  background-color: #f8f8f8;
+}
+
+.executionHistory {
+  max-width: 350px;
+  padding: 0 12px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+}
+
+.historyItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-left: 2px solid #ddd;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.historyDot {
+  position: absolute;
+  left: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #f68b21;
+}
+
+.historyTime {
+  font-size: 14px;
+  color: #666;
+  min-width: 150px;
+}
+
+.historyStatus {
+  flex: 1;
+}
+
+.statusPassed,
+.statusFailed {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.statusPassed {
+  background-color: #e6f4ea;
+  color: #1e8e3e;
+}
+
+.statusFailed {
+  background-color: #fce8e6;
+  color: #ee3124;
+}
+
+.historyViewButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.historyViewButton:hover {
+  opacity: 1;
+}
+
+.iconButton.rotated img {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+.iconButton img {
+  transition: transform 0.3s ease;
+}
