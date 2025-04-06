@@ -1,23 +1,34 @@
 import { useState } from "react";
 import styles from "./CreateProcess.module.css";
 import SaveModel from "./SaveModel";
+import AddNodeTooltip from "./AddNodeTooltip";
 import { useNavigate } from "react-router-dom";
 
 const CreateProcess = () => {
   const [zoom, setZoom] = useState(100);
   const [isSaveModelOpen, setIsSaveModelOpen] = useState(false);
   const [workflowTitle, setWorkflowTitle] = useState("Untitled");
-  let navigate = useNavigate();
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const navigate = useNavigate();
 
   const handleSave = () => {
     setIsSaveModelOpen(true);
   };
 
   const handleConfirmSave = (data: { name: string; description: string }) => {
-    // Handle save logic here
     console.log("Saving workflow...", data);
     setWorkflowTitle(data.name);
     setIsSaveModelOpen(false);
+  };
+
+  const toggleTooltip = () => {
+    setIsTooltipVisible(!isTooltipVisible);
+  };
+
+  const handleNodeSelect = (type: "api" | "email" | "textbox") => {
+    console.log("Selected node type:", type);
+    setIsTooltipVisible(false);
+    // Add your node creation logic here
   };
 
   return (
@@ -50,8 +61,12 @@ const CreateProcess = () => {
           <div className={styles.startNode}>
             <img src="startProcess.png" alt="start-node" />
             <div className={styles.connector}>
-              <div className={styles.addNode}>
+              <div className={styles.addNode} onClick={toggleTooltip}>
                 <img src="plus-sign.png" alt="add" />
+                <AddNodeTooltip
+                  isVisible={isTooltipVisible}
+                  onSelect={handleNodeSelect}
+                />
               </div>
             </div>
           </div>
