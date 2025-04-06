@@ -1,4 +1,3 @@
-import React from "react";
 import "./loginPage.css";
 import LoginForm from "./loginForm";
 
