@@ -6,11 +6,11 @@ import CreateProcess from "./pages/workflow/CreateProcess";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/workflow-management">
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/dashboard" element={<WorkflowBuilder />} />
-        <Route path="/createProcess" element={<CreateProcess />} />
+        <Route path="/create" element={<CreateProcess />} />
         {/* <Route path="/save" element={<SimpleHeader />} /> */}
       </Routes>
     </Router>
