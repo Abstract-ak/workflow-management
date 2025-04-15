@@ -6,7 +6,7 @@ function loginPage() {
     <div className="login-container">
       <div className="background-image"></div>
       <div className="leftSection">
-        <img src="/logo_highbridge.png" alt="HighBridge" className="logo" />
+        <img src="logo_highbridge.png" alt="HighBridge" className="logo" />
         <div>
           <h1>Building the Future...</h1>
           <p>

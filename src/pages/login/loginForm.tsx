@@ -66,15 +66,15 @@ const LoginForm = () => {
 
           <div className={styles.socialLogin}>
             <button type="button" className={styles.socialButton}>
-              <img src="/google.svg" alt="Google" />
+              <img src="google.svg" alt="Google" />
               <span>Log In with Google</span>
             </button>
             <button type="button" className={styles.socialButton}>
-              <img src="/facebook.svg" alt="Facebook" />
+              <img src="facebook.svg" alt="Facebook" />
               <span>Log In with Facebook</span>
             </button>
             <button type="button" className={styles.socialButton}>
-              <img src="/apple.png" alt="Apple" />
+              <img src="apple.png" alt="Apple" />
               <span>Log In with Apple</span>
             </button>
           </div>

@@ -9,10 +9,11 @@
 
 .loginCard {
   background: white;
-  border-radius: 20px;
+  /* border-radius: 20px; */
+  border-radius: 20px 20px 0 0;
   padding: 40px;
   width: 100%;
-  max-width: 500px;
+  max-width: 487px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -156,7 +157,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .socialButton {
