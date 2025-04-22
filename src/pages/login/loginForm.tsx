@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+// import { auth } from "../../firebase.jsx"; // Adjust the import path as necessary
+import { auth } from "../../auth/firebase"; // Import your Firebase auth instance
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import styles from "./loginForm.module.css";
 
 const LoginForm = () => {
@@ -6,10 +10,28 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
     console.log({ email, password, rememberMe });
+    try{
+    const userCredentials = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    if (userCredentials) {
+      console.log("User logged in successfully");
+    }
+    // Redirect to dashboard or home page
+    navigate("/dashboard"); // Adjust the path as necessary
+  }
+  catch (error) {
+      console.error("Error logging in:", error);
+      // Handle error (e.g., show a message to the user)
+    }
   };
 
   return (
