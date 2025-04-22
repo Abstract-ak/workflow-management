@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 // import { auth } from "../../firebase.jsx"; // Adjust the import path as necessary
-import { auth } from "../../auth/firebase"; // Import your Firebase auth instance
+import { auth, provider } from "../../auth/firebase"; // Import your Firebase auth instance
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import styles from "./loginForm.module.css";
 
@@ -25,14 +25,29 @@ const LoginForm = () => {
     if (userCredentials) {
       console.log("User logged in successfully");
     }
-    // Redirect to dashboard or home page
-    navigate("/dashboard"); // Adjust the path as necessary
+    // Redirect to dashboard
+    navigate("/dashboard");
   }
   catch (error) {
       console.error("Error logging in:", error);
       // Handle error (e.g., show a message to the user)
     }
   };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log(user);
+      alert(`Logged in as: ${user.displayName} `);
+      
+      // Redirect to dashboard
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+      // alert("Error: " + error);
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -87,7 +102,7 @@ const LoginForm = () => {
           </div>
 
           <div className={styles.socialLogin}>
-            <button type="button" className={styles.socialButton}>
+            <button type="button" className={styles.socialButton} onClick={handleGoogleLogin}>
               <img src="google.svg" alt="Google" />
               <span>Log In with Google</span>
             </button>
