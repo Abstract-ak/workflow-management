@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/login/loginPage";
 import WorkflowBuilder from "./pages/workflow/WorkflowBuilder";
-import CreateProcess from "./pages/workflow/CreateProcess";
+import CreateProcess from "./pages/process/CreateProcess";
 // import SimpleHeader from "./pages/workflow/savePanel";
 
 function App() {
