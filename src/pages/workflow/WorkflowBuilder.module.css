@@ -108,10 +108,10 @@
     Roboto, Oxygen, Cantarell, Helvetica Neue, Ubuntu, sans-serif;
   font-size: 0.94rem;
   align-items: center;
-  height: 48px;
+  /* height: 48px; */
   border-radius: 0.4rem;
   font-weight: 600;
-  padding: 0 1.2rem;
+  padding: 0.724rem 1.2rem;
   color: #ddd;
   border: none;
   cursor: pointer;
