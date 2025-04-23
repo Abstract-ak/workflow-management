@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-// import { auth } from "../../firebase.jsx"; // Adjust the import path as necessary
-import { auth, provider } from "../../auth/firebase"; // Import your Firebase auth instance
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import { auth, provider } from "../../auth/firebase";
+import { useNavigate } from "react-router-dom";
 import styles from "./loginForm.module.css";
 
 const LoginForm = () => {
