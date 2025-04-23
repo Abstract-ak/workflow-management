@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./WorkflowBuilder.module.css";
 import { Workflow, initialWorkflowData } from "./workflowData";
 import ExecuteModel from "./ExecuteModel";
+import ExecutionHistoryRow from "./ExecutionHistory";
+import ExecutionHistory from "./ExecutionHistory";
 
 const WorkflowBuilder = () => {
   const [isNavbarActive, setIsNavbarActive] = useState(false);
@@ -95,15 +97,15 @@ const WorkflowBuilder = () => {
           {/* <img src="Component36.png" alt="search-feild" /> */}
           {/* <button className={styles.createButton}>+ Create New Process</button> */}
           <div className={styles.InputContainer}>
-          <input className={styles.searchInput} placeholder="Search.." type="text" name="search-feild"/>
-          
-          <label className={styles.labelforsearch} htmlFor="input">
-    <svg className={styles.searchIcon} viewBox="0 0 512 512">
-      <path
-        d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
-      ></path>
-    </svg>
-  </label>
+            <input className={styles.searchInput} placeholder="Search.." type="text" name="search-feild" />
+
+            <label className={styles.labelforsearch} htmlFor="input">
+              <svg className={styles.searchIcon} viewBox="0 0 512 512">
+                <path
+                  d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                ></path>
+              </svg>
+            </label>
 
           </div>
           <button className={styles.createButton}>
@@ -119,6 +121,7 @@ const WorkflowBuilder = () => {
                 <th>ID</th>
                 <th>Last Edited On</th>
                 <th>Description</th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -154,6 +157,8 @@ const WorkflowBuilder = () => {
                     <td>
                       <button className={styles.editButton}>Edit</button>
                     </td>
+
+                    {/* action button */}
                     <td className={styles.actionButtons}>
                       <div
                         className={styles.dropdownContainer}
@@ -177,10 +182,13 @@ const WorkflowBuilder = () => {
                           </div>
                         )}
                       </div>
+                    </td>
+
+                    {/* process feild report-table */}
+                    <td>
                       <button
-                        className={`${styles.iconButton} ${
-                          expandedRows.includes(index) ? styles.rotated : ""
-                        }`}
+                        className={`${styles.iconButton} ${expandedRows.includes(index) ? styles.rotated : ""
+                          }`}
                         onClick={() => toggleExpandRow(index)}
                       >
                         <img src="Frame_arrowDown.png" alt="formUp" />
@@ -188,61 +196,9 @@ const WorkflowBuilder = () => {
                     </td>
                   </tr>
                   {expandedRows.includes(index) && (
-                    <tr
+                    <ExecutionHistory
                       key={`expanded-${index}`}
-                      className={styles.expandedRow}
-                    >
-                      <td colSpan={8}>
-                        <div className={styles.executionHistory}>
-                          {/* <h3>Execution History</h3> */}
-
-                          <div className={styles.historyItem}>
-                            <div className={styles.historyDot} />
-                            <div className={styles.historyTime}>
-                              28/05 - 22:43 IST
-                            </div>
-                            <div className={styles.historyStatus}>
-                              <span className={styles.statusPassed}>
-                                Passed
-                              </span>
-                            </div>
-                            <button className={styles.historyViewButton}>
-                              <img src="open-Frame.png" alt="view" />
-                            </button>
-                          </div>
-
-                          <div className={styles.historyItem}>
-                            <div className={styles.historyDot} />
-                            <div className={styles.historyTime}>
-                              31/05 - 17:14 IST
-                            </div>
-                            <div className={styles.historyStatus}>
-                              <span className={styles.statusFailed}>
-                                Failed
-                              </span>
-                            </div>
-                            <button className={styles.historyViewButton}>
-                              <img src="open-Frame.png" alt="view" />
-                            </button>
-                          </div>
-
-                          <div className={styles.historyItem}>
-                            <div className={styles.historyDot} />
-                            <div className={styles.historyTime}>
-                              02/06 - 12:12 IST
-                            </div>
-                            <div className={styles.historyStatus}>
-                              <span className={styles.statusFailed}>
-                                Failed
-                              </span>
-                            </div>
-                            <button className={styles.historyViewButton}>
-                              <img src="open-Frame.png" alt="view" />
-                            </button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
+                    />
                   )}
                 </>
               ))}
