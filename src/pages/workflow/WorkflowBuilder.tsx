@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./WorkflowBuilder.module.css";
 import { Workflow, initialWorkflowData } from "./workflowData";
 import ExecuteModel from "./ExecuteModel";
-import ExecutionHistoryRow from "./ExecutionHistory";
 import ExecutionHistory from "./ExecutionHistory";
+import { useNavigate } from "react-router-dom";
 
 const WorkflowBuilder = () => {
   const [isNavbarActive, setIsNavbarActive] = useState(false);
@@ -14,6 +14,7 @@ const WorkflowBuilder = () => {
   );
   const [expandedRows, setExpandedRows] = useState<number[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -108,7 +109,7 @@ const WorkflowBuilder = () => {
             </label>
 
           </div>
-          <button className={styles.createButton}>
+          <button className={styles.createButton} onClick={() => navigate('/create')}>
             + Create New Process
           </button>
         </div>
