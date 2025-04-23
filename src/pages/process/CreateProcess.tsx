@@ -3,6 +3,7 @@ import styles from "./CreateProcess.module.css";
 import SaveModel from "./SaveModel";
 import AddNodeTooltip from "./AddNodeTooltip";
 import { useNavigate } from "react-router-dom";
+import SimpleHeader from "./savePanel";
 
 const CreateProcess = () => {
   const [zoom, setZoom] = useState(100);
@@ -33,27 +34,11 @@ const CreateProcess = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        {/* <div className={styles.leftHeader}> */}
-        {/* <button> */}
-        <img
-          src="goBack-btn.png"
-          alt="back"
-          onClick={() => {
-            navigate(-1);
-          }}
-          style={{ cursor: "pointer" }}
-        />
-        {/* </button> */}
-        <span className={styles.titleText}>{workflowTitle}</span>
-        <img
-          src="save-btn.png"
-          alt="save"
-          onClick={handleSave}
-          style={{ cursor: "pointer" }}
-        />
-        {/* </div> */}
-      </div>
+      <SimpleHeader
+        workflowTitle={workflowTitle}
+        handleSave={handleSave}
+        navigate={navigate}
+      />
 
       <div className={styles.workflowCanvas}>
         {/* <div className={styles.dotGrid}> */}
