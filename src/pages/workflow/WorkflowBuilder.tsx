@@ -94,8 +94,8 @@ const WorkflowBuilder = () => {
         <div className={styles.searchContainer}>
           <img src="Component36.png" alt="search-feild" />
           {/* <button className={styles.createButton}>+ Create New Process</button> */}
-          <button>
-            <img src="Button.png" alt="create-resource button" />
+          <button className={styles.createButton}>
+            {/* <img src="Button.png" alt="create-resource button" /> */}+ Create New Process
           </button>
         </div>
 
