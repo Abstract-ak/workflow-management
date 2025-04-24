@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./CreateProcess.module.css";
 import SaveModel from "./SaveModel";
 import AddNodeTooltip from "./AddNodeTooltip";
@@ -10,7 +10,25 @@ const CreateProcess = () => {
   const [isSaveModelOpen, setIsSaveModelOpen] = useState(false);
   const [workflowTitle, setWorkflowTitle] = useState("Untitled");
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+
+  const addNodeRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        addNodeRef.current &&
+        !addNodeRef.current.contains(event.target as Node)
+      ) {
+        setIsTooltipVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleSave = () => {
     setIsSaveModelOpen(true);
@@ -46,7 +64,9 @@ const CreateProcess = () => {
           <div className={styles.startNode}>
             <img src="startProcess.png" alt="start-node" />
             <div className={styles.connector}>
-              <div className={styles.addNode} onClick={toggleTooltip}>
+              <div className={styles.addNode}
+                onClick={toggleTooltip} // Uncommented to enable tooltip toggle
+                ref={addNodeRef}>
                 <img src="plus-sign.png" alt="add" />
                 <AddNodeTooltip
                   isVisible={isTooltipVisible}
