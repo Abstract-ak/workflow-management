@@ -62,19 +62,24 @@ const CreateProcess = () => {
         {/* <div className={styles.dotGrid}> */}
         <div className={styles.workflowNodes}>
           <div className={styles.startNode}>
+
             <img src="startProcess.png" alt="start-node" />
-            <div className={styles.connector}>
-              <div className={styles.addNode}
-                onClick={toggleTooltip} // Uncommented to enable tooltip toggle
-                ref={addNodeRef}>
-                <img src="plus-sign.png" alt="add" />
-                <AddNodeTooltip
-                  isVisible={isTooltipVisible}
-                  onSelect={handleNodeSelect}
-                />
-              </div>
-            </div>
+            <div className={styles.connector}></div>
           </div>
+
+          <div className={styles.addNode}
+            onClick={toggleTooltip}
+            ref={addNodeRef}>
+            <img src="plus-sign.png" alt="add" />
+            <AddNodeTooltip
+              isVisible={isTooltipVisible}
+              onSelect={handleNodeSelect}
+            />
+            <div className={styles.connector}></div>
+          </div>
+
+          {/* </div> */}
+          {/* </div> */}
           <div className={styles.endNode}>
             <img src="endProcess.png" alt="end-node" />
           </div>
