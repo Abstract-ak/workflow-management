@@ -68,7 +68,7 @@ const CreateProcess = () => {
           </div>
 
           <div className={styles.addNode}
-            onClick={toggleTooltip} // Uncommented to enable tooltip toggle
+            onClick={toggleTooltip}
             ref={addNodeRef}>
             <img src="plus-sign.png" alt="add" />
             <AddNodeTooltip
