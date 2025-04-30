@@ -3,7 +3,7 @@ import styles from './cardOptions.module.css';
 import { Trash2 } from 'lucide-react';
 
 type BoxCardProps = {
-  title: string;
+  title: string | null;
   onDelete: () => void;
 };
 

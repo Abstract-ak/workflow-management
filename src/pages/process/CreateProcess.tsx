@@ -4,12 +4,29 @@ import SaveModel from "./SaveModel";
 import AddNodeTooltip from "./AddNodeTooltip";
 import { useNavigate } from "react-router-dom";
 import SimpleHeader from "./savePanel";
+import BoxCard from "./cardOptions";
 
 const CreateProcess = () => {
+
+  type NodeItem = {
+    selectedNode: "api" | "email" | "textbox" | null;
+    id: number;
+  };
+
   const [zoom, setZoom] = useState(100);
   const [isSaveModelOpen, setIsSaveModelOpen] = useState(false);
   const [workflowTitle, setWorkflowTitle] = useState("Untitled");
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
+
+
+  const [nodeList, setNodeList] = useState<NodeItem[]>([]);
+  // const [selectedNode, setSelectedNode] = useState<NodeItem>(
+  //   null
+  // );
+  // const [nodeList, setNodeList] = useState<SelectionMode[]>([]);
+  // Adjust type as needed
+
+
 
   const addNodeRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
@@ -22,9 +39,7 @@ const CreateProcess = () => {
       ) {
         setIsTooltipVisible(false);
       }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
+    }; document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -48,6 +63,10 @@ const CreateProcess = () => {
     console.log("Selected node type:", type);
     setIsTooltipVisible(false);
     // Add your node creation logic here
+    // setSelectedNode(type);
+    setNodeList((prev) => [...prev, { selectedNode: type, id: Date.now() }]); // Add the selected node type to the list with a unique ID
+    console.log("nodelist", nodeList);
+
   };
 
   return (
@@ -66,6 +85,20 @@ const CreateProcess = () => {
             <img src="startProcess.png" alt="start-node" />
             <div className={styles.connector}></div>
           </div>
+
+          {
+            nodeList.map((node, index) => (
+              <div key={node.id}>
+                <BoxCard
+                  title={node.selectedNode}
+                  onDelete={() =>
+                    setNodeList((prev) => prev.filter((_, i) => i !== index))
+                  }
+                />
+                <div className={styles.connection}></div>
+              </div>
+            ))
+          }
 
           <div className={styles.addNode}
             onClick={toggleTooltip}
