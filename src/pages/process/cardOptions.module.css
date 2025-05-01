@@ -6,14 +6,25 @@
   border: 1px solid #c6e5c6; /* light green border */
   border-radius: 8px;
   background-color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   max-width: 300px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-color: #9ed99e;
 }
 
 .title {
   font-size: 14px;
   color: #333333;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .deleteButton {
@@ -21,9 +32,14 @@
   border: none;
   cursor: pointer;
   color: #f44336;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .deleteButton:hover {
   color: #d32f2f;
+  opacity: 1;
+  background: rgba(244, 67, 54, 0.1);
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./AddNodeTooltip.module.css";
+import { Webhook, Mail, Type } from "lucide-react";
 
 interface AddNodeTooltipProps {
   isVisible: boolean;
@@ -19,19 +20,22 @@ const AddNodeTooltip: React.FC<AddNodeTooltipProps> = ({
           className={styles.tooltipButton}
           onClick={() => onSelect("api")}
         >
-          API Call
+          <Webhook size={16} />
+          <span>API Call</span>
         </button>
         <button
           className={styles.tooltipButton}
           onClick={() => onSelect("email")}
         >
-          Email
+          <Mail size={16} />
+          <span>Email</span>
         </button>
         <button
           className={styles.tooltipButton}
           onClick={() => onSelect("textbox")}
         >
-          Text Box
+          <Type size={16} />
+          <span>Text Box</span>
         </button>
       </div>
     </div>
