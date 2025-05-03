@@ -17,7 +17,7 @@ const CreateProcess = () => {
   const [isSaveModelOpen, setIsSaveModelOpen] = useState(false);
   const [workflowTitle, setWorkflowTitle] = useState("Untitled");
   const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
-
+  const [activeTooltipIndex, setActiveTooltipIndex] = useState<number | null>(null);
 
   const [nodeList, setNodeList] = useState<NodeItem[]>([]);
   // const [selectedNode, setSelectedNode] = useState<NodeItem>(
@@ -25,8 +25,6 @@ const CreateProcess = () => {
   // );
   // const [nodeList, setNodeList] = useState<SelectionMode[]>([]);
   // Adjust type as needed
-
-
 
   const addNodeRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
@@ -38,8 +36,10 @@ const CreateProcess = () => {
         !addNodeRef.current.contains(event.target as Node)
       ) {
         setIsTooltipVisible(false);
+        setActiveTooltipIndex(null);
       }
-    }; document.addEventListener("mousedown", handleClickOutside);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -57,16 +57,30 @@ const CreateProcess = () => {
 
   const toggleTooltip = () => {
     setIsTooltipVisible(!isTooltipVisible);
+    setActiveTooltipIndex(null);
   };
 
   const handleNodeSelect = (type: "api" | "email" | "textbox") => {
     console.log("Selected node type:", type);
     setIsTooltipVisible(false);
-    // Add your node creation logic here
-    // setSelectedNode(type);
-    setNodeList((prev) => [...prev, { selectedNode: type, id: Date.now() }]); // Add the selected node type to the list with a unique ID
-    console.log("nodelist", nodeList);
+    setActiveTooltipIndex(null);
 
+    if (activeTooltipIndex === null) {
+      // Add at the end
+      setNodeList((prev) => [...prev, { selectedNode: type, id: Date.now() }]);
+    } else {
+      // Insert at specific position
+      setNodeList((prev) => {
+        const newList = [...prev];
+        newList.splice(activeTooltipIndex, 0, { selectedNode: type, id: Date.now() });
+        return newList;
+      });
+    }
+  };
+
+  const handleAddNode = (index: number, position: 'above' | 'below') => {
+    setActiveTooltipIndex(position === 'above' ? index : index + 1);
+    setIsTooltipVisible(true);
   };
 
   return (
@@ -94,6 +108,8 @@ const CreateProcess = () => {
                   onDelete={() =>
                     setNodeList((prev) => prev.filter((_, i) => i !== index))
                   }
+                  onAddAbove={() => handleAddNode(index, 'above')}
+                  onAddBelow={() => handleAddNode(index, 'below')}
                 />
                 <div className={styles.connection}></div>
               </div>
