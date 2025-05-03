@@ -4,12 +4,27 @@ import SaveModel from "./SaveModel";
 import AddNodeTooltip from "./AddNodeTooltip";
 import { useNavigate } from "react-router-dom";
 import SimpleHeader from "./savePanel";
+import BoxCard from "./cardOptions";
 
 const CreateProcess = () => {
+
+  type NodeItem = {
+    selectedNode: "api" | "email" | "textbox" | null;
+    id: number;
+  };
+
   const [zoom, setZoom] = useState(100);
   const [isSaveModelOpen, setIsSaveModelOpen] = useState(false);
   const [workflowTitle, setWorkflowTitle] = useState("Untitled");
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
+  const [activeTooltipIndex, setActiveTooltipIndex] = useState<number | null>(null);
+
+  const [nodeList, setNodeList] = useState<NodeItem[]>([]);
+  // const [selectedNode, setSelectedNode] = useState<NodeItem>(
+  //   null
+  // );
+  // const [nodeList, setNodeList] = useState<SelectionMode[]>([]);
+  // Adjust type as needed
 
   const addNodeRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
@@ -21,9 +36,9 @@ const CreateProcess = () => {
         !addNodeRef.current.contains(event.target as Node)
       ) {
         setIsTooltipVisible(false);
+        setActiveTooltipIndex(null);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -42,12 +57,30 @@ const CreateProcess = () => {
 
   const toggleTooltip = () => {
     setIsTooltipVisible(!isTooltipVisible);
+    setActiveTooltipIndex(null);
   };
 
   const handleNodeSelect = (type: "api" | "email" | "textbox") => {
     console.log("Selected node type:", type);
     setIsTooltipVisible(false);
-    // Add your node creation logic here
+    setActiveTooltipIndex(null);
+
+    if (activeTooltipIndex === null) {
+      // Add at the end
+      setNodeList((prev) => [...prev, { selectedNode: type, id: Date.now() }]);
+    } else {
+      // Insert at specific position
+      setNodeList((prev) => {
+        const newList = [...prev];
+        newList.splice(activeTooltipIndex, 0, { selectedNode: type, id: Date.now() });
+        return newList;
+      });
+    }
+  };
+
+  const handleAddNode = (index: number, position: 'above' | 'below') => {
+    setActiveTooltipIndex(position === 'above' ? index : index + 1);
+    setIsTooltipVisible(true);
   };
 
   return (
@@ -66,6 +99,22 @@ const CreateProcess = () => {
             <img src="startProcess.png" alt="start-node" />
             <div className={styles.connector}></div>
           </div>
+
+          {
+            nodeList.map((node, index) => (
+              <div key={node.id}>
+                <BoxCard
+                  title={node.selectedNode}
+                  onDelete={() =>
+                    setNodeList((prev) => prev.filter((_, i) => i !== index))
+                  }
+                  onAddAbove={() => handleAddNode(index, 'above')}
+                  onAddBelow={() => handleAddNode(index, 'below')}
+                />
+                <div className={styles.connection}></div>
+              </div>
+            ))
+          }
 
           <div className={styles.addNode}
             onClick={toggleTooltip}
