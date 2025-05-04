@@ -6,10 +6,9 @@ type BoxCardProps = {
   title: string | null;
   onDelete: () => void;
   onAddAbove: () => void;
-  onAddBelow: () => void;
 };
 
-const BoxCard: React.FC<BoxCardProps> = ({ title, onDelete, onAddAbove, onAddBelow }) => {
+const BoxCard: React.FC<BoxCardProps> = ({ title, onDelete, onAddAbove }) => {
   const getIcon = () => {
     switch (title) {
       case 'api':
@@ -25,9 +24,9 @@ const BoxCard: React.FC<BoxCardProps> = ({ title, onDelete, onAddAbove, onAddBel
 
   return (
     <div className={styles.cardContainer}>
-      <button className={styles.addButton} onClick={onAddAbove}>
+      {/* <button className={styles.addButton} onClick={onAddAbove}>
         <Plus size={16} />
-      </button>
+      </button> */}
       <div className={styles.card}>
         <span className={styles.title}>
           {getIcon()}
@@ -37,9 +36,6 @@ const BoxCard: React.FC<BoxCardProps> = ({ title, onDelete, onAddAbove, onAddBel
           <Trash2 size={16} />
         </button>
       </div>
-      {/* <button className={styles.addButton} onClick={onAddBelow}>
-        <Plus size={16} />
-      </button> */}
     </div>
   );
 };

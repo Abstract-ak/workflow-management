@@ -86,7 +86,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3.87rem;
+  /* gap: 2.87rem; */
 }
 
 .startNode
@@ -104,31 +104,26 @@
 }
 
 .connector {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 60px;
+  /* position: absolute; */
+  /* top: 100%; */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  height: 44px;
   width: 2px;
   background-color: #666;
+  margin: 0 auto;
 }
 
 .connection {
-  position: absolute;
   /* position: relative; */
-  /* top: 100%; */
-  left: 50%;
-  transform: translateX(-50%);
-  height: 60px;
+  /* position: absolute; */
+  height: 1.5rem;
   width: 2px;
   background-color: #666;
+  margin: 0 auto;
 }
 
 .addNode {
-  /* position: absolute; */
-  /* bottom: -28px; */
-  /* left: 50%; */
-  /* transform: translateX(-50%); */
   width: 24px;
   height: 24px;
   background-color: white;
@@ -139,6 +134,12 @@
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
+  transition: transform 0.2s ease;
+  /* z-index: 1; */
+}
+
+.addNode:hover {
+  transform: scale(1.1);
 }
 
 .addNode img {
@@ -152,7 +153,13 @@
   left: 50%;
 }
 
-
+.nodeWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* gap: 0.5rem; */
+}
 
 .footer {
   position: fixed;
@@ -227,7 +234,7 @@
 .zoomSlider {
   width: 100%;
   height: 4px;
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
   background: #e0e0e0;
   border-radius: 2px;
   outline: none;
