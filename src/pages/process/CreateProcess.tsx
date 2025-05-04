@@ -26,15 +26,16 @@ const CreateProcess = () => {
   // const [nodeList, setNodeList] = useState<SelectionMode[]>([]);
   // Adjust type as needed
 
-  const addNodeRef = useRef<HTMLDivElement | null>(null);
+  const addNodeRefs = useRef<(HTMLDivElement | null)[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        addNodeRef.current &&
-        !addNodeRef.current.contains(event.target as Node)
-      ) {
+      const clickedOutside = addNodeRefs.current.every(
+        (ref) => ref && !ref.contains(event.target as Node)
+      );
+
+      if (clickedOutside) {
         setIsTooltipVisible(false);
         setActiveTooltipIndex(null);
       }
@@ -55,15 +56,17 @@ const CreateProcess = () => {
     setIsSaveModelOpen(false);
   };
 
-  const toggleTooltip = () => {
+  const toggleTooltip = (index: number | null) => {
     setIsTooltipVisible(!isTooltipVisible);
-    setActiveTooltipIndex(null);
+    setActiveTooltipIndex(index);
+
+    // console.log("active-tooltip index: ", activeTooltipIndex);
   };
 
   const handleNodeSelect = (type: "api" | "email" | "textbox") => {
     console.log("Selected node type:", type);
     setIsTooltipVisible(false);
-    setActiveTooltipIndex(null);
+    // setActiveTooltipIndex(null);
 
     if (activeTooltipIndex === null) {
       // Add at the end
@@ -78,10 +81,10 @@ const CreateProcess = () => {
     }
   };
 
-  const handleAddNode = (index: number, position: 'above' | 'below') => {
-    setActiveTooltipIndex(position === 'above' ? index : index + 1);
-    setIsTooltipVisible(true);
-  };
+  // const handleAddNode = (index: number, position: 'above' | 'below') => {
+  //   setActiveTooltipIndex(position === 'above' ? index : index + 1);
+  //   setIsTooltipVisible(true);
+  // };
 
   return (
     <div className={styles.container}>
@@ -102,14 +105,30 @@ const CreateProcess = () => {
 
           {
             nodeList.map((node, index) => (
-              <div key={node.id}>
+              <div key={node.id} className={styles.nodeWrapper}>
+                <div className={styles.addNode}
+                  onClick={() => toggleTooltip(index)}
+                  // ref={addNodeRef}>
+                  ref={(el) => {
+                    addNodeRefs.current[index] = el;
+                  }}
+                >
+                  <img src="plus-sign.png" alt="add" />
+                  {isTooltipVisible && activeTooltipIndex === index && (
+                    <AddNodeTooltip
+                      isVisible={isTooltipVisible}
+                      onSelect={handleNodeSelect}
+                    />
+                  )}
+                </div>
+                <div className={styles.connection}></div>
                 <BoxCard
                   title={node.selectedNode}
                   onDelete={() =>
                     setNodeList((prev) => prev.filter((_, i) => i !== index))
                   }
-                  onAddAbove={() => handleAddNode(index, 'above')}
-                  onAddBelow={() => handleAddNode(index, 'below')}
+                  onAddAbove={() => { }}
+                // onAddBelow={() => handleAddNode(index, 'below')}
                 />
                 <div className={styles.connection}></div>
               </div>
@@ -117,25 +136,34 @@ const CreateProcess = () => {
           }
 
           <div className={styles.addNode}
-            onClick={toggleTooltip}
-            ref={addNodeRef}>
+            onClick={() => toggleTooltip(null)}
+            ref={(el) => {
+              addNodeRefs.current[nodeList.length] = el;
+            }}
+          >
             <img src="plus-sign.png" alt="add" />
-            <AddNodeTooltip
-              isVisible={isTooltipVisible}
-              onSelect={handleNodeSelect}
-            />
-            <div className={styles.connector}></div>
+
+            {isTooltipVisible && activeTooltipIndex === null && (
+              <AddNodeTooltip
+                isVisible={isTooltipVisible}
+                onSelect={handleNodeSelect}
+              />
+
+            )}
           </div>
 
           {/* </div> */}
           {/* </div> */}
           <div className={styles.endNode}>
+            <div className={styles.connector}></div>
             <img src="endProcess.png" alt="end-node" />
           </div>
         </div>
         {/* </div> */}
       </div>
 
+
+      {/* footer side */}
       <div className={styles.footer}>
         <div className={styles.leftControls}>
           <img src="undo-btn.png" alt="undo" />
