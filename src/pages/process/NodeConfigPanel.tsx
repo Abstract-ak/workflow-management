@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styles from "./NodeConfigPanel.module.css";
 
 interface ApiNodeConfig {
@@ -21,16 +21,19 @@ type NodeConfigPanelProps =
       type: "api";
       value: ApiNodeConfig;
       onChange: (value: ApiNodeConfig) => void;
+      onClose?: () => void;
     }
   | {
       type: "textbox";
       value: TextBoxConfig;
       onChange: (value: TextBoxConfig) => void;
+      onClose?: () => void;
     }
   | {
       type: "email";
       value: EmailConfig;
       onChange: (value: EmailConfig) => void;
+      onClose?: () => void;
     };
 
 const methods = ["GET", "POST", "PUT", "DELETE", "PATCH"];
@@ -123,10 +126,31 @@ const EmailConfigForm: React.FC<{
 );
 
 const NodeConfigPanel: React.FC<NodeConfigPanelProps> = (props) => {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const { onClose } = props;
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        panelRef.current &&
+        !panelRef.current.contains(event.target as Node)
+      ) {
+        // Ensure the click is outside the panel
+        console.log("Clicked outside the panel"); // Debugging log
+        if (onClose) onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
+
   return (
     <div className={styles.overlay}>
       <div className={styles.header}>Configuration</div>
-      <div className={styles.panel}>
+      <div className={styles.panel} ref={panelRef}>
         <div className={styles.formDiv}>
           {props.type === "api" && (
             <ApiConfigForm value={props.value} onChange={props.onChange} />

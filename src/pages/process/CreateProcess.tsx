@@ -171,6 +171,7 @@ const CreateProcess = () => {
                     type="api"
                     value={apiConfigs[index] || defaultApiConfig}
                     onChange={handleApiConfigChange}
+                    onClose={() => setActiveConfigIndex(null)}
                   />
                 )}
                 {activeConfigIndex === index &&
@@ -179,6 +180,7 @@ const CreateProcess = () => {
                       type="textbox"
                       value={textBoxConfigs[index] || defaultTextBoxConfig}
                       onChange={handleTextBoxConfigChange}
+                      onClose={() => setActiveConfigIndex(null)}
                     />
                   )}
                 {activeConfigIndex === index &&
@@ -187,6 +189,7 @@ const CreateProcess = () => {
                       type="email"
                       value={emailConfigs[index] || defaultEmailConfig}
                       onChange={handleEmailConfigChange}
+                      onClose={() => setActiveConfigIndex(null)}
                     />
                   )}
               </div>
